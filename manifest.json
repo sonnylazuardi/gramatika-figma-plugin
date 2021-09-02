@@ -1,0 +1,10 @@
+{
+  "name": "Eja",
+  "api": "1.0.0",
+  "main": "dist/code.js",
+  "ui": "dist/ui.html",
+  "id": "1013364535408157858",
+  "editorType": [
+    "figma"
+  ]
+}

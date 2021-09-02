@@ -98,6 +98,15 @@ function App() {
     check();
   }, []);
 
+  React.useEffect(() => {
+    if (correction.length > 0) {
+      parent.postMessage(
+        { pluginMessage: { type: "zoom-to-node", id: correction[0].id } },
+        "*"
+      );
+    }
+  }, [correction]);
+
   window.onmessage = (event: any) => {
     let message = event.data.pluginMessage;
 

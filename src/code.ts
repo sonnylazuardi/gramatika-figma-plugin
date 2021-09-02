@@ -48,4 +48,12 @@ figma.ui.onmessage = async msg => {
       }
     }, 500);
   }
+
+  if (msg.type === 'zoom-to-node') {
+    console.log({ id: msg.id });
+    const node = figma.getNodeById(msg.id);
+    //@ts-ignore
+    figma.currentPage.selection = [node];
+    figma.viewport.scrollAndZoomIntoView([node]);
+  }
 };

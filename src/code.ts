@@ -34,7 +34,6 @@ figma.ui.onmessage = async msg => {
   }
 
   if (msg.type === 'replace-text') {
-    console.log({ id: msg.id });
     const node = figma.getNodeById(msg.id);
     //@ts-ignore
     const font = node.getRangeFontName(0, node.characters.length);
@@ -50,7 +49,6 @@ figma.ui.onmessage = async msg => {
   }
 
   if (msg.type === 'zoom-to-node') {
-    console.log({ id: msg.id });
     const node = figma.getNodeById(msg.id);
     //@ts-ignore
     figma.currentPage.selection = [node];

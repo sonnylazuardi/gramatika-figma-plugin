@@ -36,6 +36,9 @@ const shortForm = {
   sm: "sama",
   bgt: "banget",
   jgn: "jangan",
+  dimanapun: "di mana pun",
+  diantara: "di antara",
+  kapanpun: "kapan pun",
 };
 
 declare function require(path: string): any;
@@ -99,7 +102,7 @@ function App() {
   }, []);
 
   React.useEffect(() => {
-    if (correction.length > 0) {
+    if (correction && correction.length > 0) {
       parent.postMessage(
         { pluginMessage: { type: "zoom-to-node", id: correction[0].id } },
         "*"
@@ -117,7 +120,7 @@ function App() {
 
     if (text === "") setIsEmpty(true);
 
-    let myText = text.replace(/\n]/g, " ");
+    let myText = text.replace(/\n/g, " ");
     myText = myText.replace(/\./g, " ");
     const tokenizer = myText.split(" ");
     tokenizer.forEach((currentText: string) => {
@@ -127,13 +130,13 @@ function App() {
         currentText = currentText.toLowerCase();
 
         if (shortForm[currentText]) {
-          // console.log(`${currentText} ==> ${shortForm[currentText]}`);
           setCorrection((oldCorrection) => [
             ...oldCorrection,
             {
               id,
               old: oldText,
               new: shortForm[currentText],
+              alt: [shortForm[currentText]],
             },
           ]);
         } else if (entries.find((item) => item === currentText)) {

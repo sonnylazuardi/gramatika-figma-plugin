@@ -1,20 +1,14 @@
-# Create React Figma Plugin
+# Cek Ejaan Figma Plugin
 
-Create React Figma Plugin with no build configuration.
+![cover](covereja.png)
 
-This demonstrates:
+Spell Checking for Bahasa Indonesia. This makes it easy to check the typo or spelling mistakes in your design.
 
-- bundling plugin code using Webpack
-- using React with TSX
-- dependency management under Yarn
-- linting utility using ESLint
-- formatting using Prettier
+# Data Source
 
-The main plugin code is in `src/code.ts`. The HTML for the UI is in
-`src/ui.html`, while the embedded JavaScript is in `src/ui.tsx`.
+All the data/words are taken from https://kbbi.vercel.app/ credits to [@mathdroid](https://github.com/mathdroid/)
 
-These are compiled to files in `dist/`, which are what Figma will use to run
-your plugin.
+# Getting Started
 
 To use:
 

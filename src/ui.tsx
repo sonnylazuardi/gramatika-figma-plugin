@@ -39,12 +39,14 @@ const shortForm = {
   dimanapun: "di mana pun",
   diantara: "di antara",
   kapanpun: "kapan pun",
+  gimana: "bagaimana",
 };
 
 declare function require(path: string): any;
 
-const getBasicWord = (word: string) => {
+const getBasicWord = (word) => {
   const affixMap = [
+    "mem",
     "meng",
     "men",
     "me",
@@ -56,23 +58,32 @@ const getBasicWord = (word: string) => {
     "pen",
     "ber",
   ];
-  const postfixMap = ["an", "kan", "i", "nya", "ku", "mu"];
+  const postfixMap = ["kan", "an", "nya", "ku", "mu", "i"];
   let result = word;
   affixMap.forEach((affix) => {
     if (word.indexOf(affix) === 0) {
       result = result.replace(affix, "");
     }
   });
+  let found = false;
   postfixMap.forEach((postfix) => {
-    if (word.length - word.indexOf(postfix) === postfix.length) {
+    if (
+      (word.length - word.indexOf(postfix) === postfix.length ||
+        postfix.length <= 1) &&
+      !found
+    ) {
+      found = true;
       const wordReverse = result
         .split("")
         .reverse()
         .join("");
-      const postfixReverse = postfix
-        .split("")
-        .reverse()
-        .join("");
+      let postfixReverse = postfix;
+      if (postfix.length > 1) {
+        postfixReverse = postfix
+          .split("")
+          .reverse()
+          .join("");
+      }
       result = wordReverse
         .replace(postfixReverse, "")
         .split("")
@@ -139,11 +150,13 @@ function App() {
               alt: [shortForm[currentText]],
             },
           ]);
-        } else if (entries.find((item) => item === currentText)) {
+        } else if (
+          entries.find(
+            (item) => item === currentText || item === getBasicWord(currentText)
+          )
+        ) {
           // console.log(`${currentText} ==> NO CHANGE`);
         } else if (isNumber(currentText)) {
-          // do nothing
-        } else if (entries.find((item) => item === getBasicWord(currentText))) {
           // do nothing
         } else {
           const filteredEntries = entriesFuse.filter(
@@ -174,7 +187,7 @@ function App() {
       }
     });
 
-    setTimeout(() => setIsSearching(false), 1000);
+    setTimeout(() => setIsSearching(false), 500);
   };
 
   const nextText = () => {

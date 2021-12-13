@@ -1,12 +1,12 @@
 {
   "name": "eja",
   "version": "0.0.1",
-  "description": "Cek ejaan bahasa Indonesia",
+  "description": "Eja - Grammarly untuk bahasa Indonesia",
   "main": "code.js",
-  "homepage": "https://github.com/FradSer/create-react-figma-plugin/",
-  "bugs": "https://github.com/FradSer/create-react-figma-plugin/issues",
+  "homepage": "https://github.com/sonnylazuardi/cek-ejaan/",
+  "bugs": "https://github.com/sonnylazuardi/cek-ejaan/issues",
   "repository": {
-    "url": "https://github.com/FradSer/create-react-figma-plugin/",
+    "url": "https://github.com/sonnylazuardi/cek-ejaan/",
     "type": "git"
   },
   "scripts": {
@@ -15,7 +15,7 @@
     "lint": "eslint './src/**/*.{ts,tsx}' --fix",
     "build": "webpack --mode production"
   },
-  "author": "Frad LEE",
+  "author": "sonnylazuardi",
   "license": "MIT",
   "dependencies": {
     "@types/react": "^16.9.1",

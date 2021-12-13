@@ -8,6 +8,8 @@ Spell Checking for Bahasa Indonesia. This makes it easy to check the typo or spe
 
 # Data Source
 
+Library of Kata baku dan tidak baku https://github.com/lantip/baku-tidak-baku
+
 All the data/words are taken from https://kbbi.vercel.app/ credits to [@mathdroid](https://github.com/mathdroid/)
 
 # Getting Started

@@ -3,6 +3,7 @@ import * as ReactDOM from "react-dom";
 import "./ui.css";
 //@ts-ignore
 const entries = require("./entries.json");
+const baku = require("./baku.json");
 const LeftChevron = require("./left-chevron.svg");
 const RightChevron = require("./right-chevron.svg");
 const Lottie = require("react-lottie").default;
@@ -12,35 +13,6 @@ const doneAnim = require("./done.json");
 const entriesFuse = entries.map((item) => ({ text: item }));
 
 const Fuse = require("fuse.js");
-
-const shortForm = {
-  utk: "untuk",
-  yg: "yang",
-  kpd: "kepada",
-  sbg: "sebagai",
-  krn: "karena",
-  spy: "supaya",
-  bs: "bisa",
-  sj: "saja",
-  aja: "saja",
-  tp: "tapi",
-  tdk: "tidak",
-  nggak: "tidak",
-  gak: "tidak",
-  gk: "tidak",
-  gw: "saya",
-  gue: "saya",
-  lo: "kamu",
-  loe: "kamu",
-  syg: "sayang",
-  sm: "sama",
-  bgt: "banget",
-  jgn: "jangan",
-  dimanapun: "di mana pun",
-  diantara: "di antara",
-  kapanpun: "kapan pun",
-  gimana: "bagaimana",
-};
 
 declare function require(path: string): any;
 
@@ -140,14 +112,14 @@ function App() {
         currentText = currentText.replace(/[^a-zA-Z0-9\-]/g, "");
         currentText = currentText.toLowerCase();
 
-        if (shortForm[currentText]) {
+        if (baku[currentText]) {
           setCorrection((oldCorrection) => [
             ...oldCorrection,
             {
               id,
               old: oldText,
-              new: shortForm[currentText],
-              alt: [shortForm[currentText]],
+              new: baku[currentText],
+              alt: [baku[currentText]],
             },
           ]);
         } else if (
@@ -166,7 +138,7 @@ function App() {
             keys: ["text"],
             id: "text",
             shouldSort: true,
-            threshold: 0.6,
+            threshold: 0.3,
           });
           setTimeout(() => {
             const results = fuse.search(currentText);

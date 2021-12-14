@@ -277,6 +277,11 @@ ajv@^6.1.0, ajv@^6.10.0, ajv@^6.10.2:
     json-schema-traverse "^0.4.1"
     uri-js "^4.2.2"
 
+akarata@^0.2.1:
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/akarata/-/akarata-0.2.1.tgz#cc14555096867a4202ec07099d70a7b55a5cc519"
+  integrity sha512-Zh9pMV0AOlrLqx6c+PExxBcaZK0I9eIAf2GFA9VHYeZEeyiRr5USbqSR8+dNOBzL670ndYaDlBpwr+ox7XHDpg==
+
 ansi-escapes@^3.2.0:
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/ansi-escapes/-/ansi-escapes-3.2.0.tgz#8780b98ff9dbf5638152d1f1fe5c1d7b4442976b"

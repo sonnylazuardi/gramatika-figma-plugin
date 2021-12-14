@@ -20,6 +20,7 @@
   "dependencies": {
     "@types/react": "^16.9.1",
     "@types/react-dom": "^16.8.5",
+    "akarata": "^0.2.1",
     "css-loader": "^3.1.0",
     "fuse.js": "^3.4.6",
     "html-webpack-inline-source-plugin": "0.0.10",

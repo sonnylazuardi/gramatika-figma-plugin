@@ -9,6 +9,7 @@ const RightChevron = require("./right-chevron.svg");
 const Lottie = require("react-lottie").default;
 const searchingAnim = require("./searching.json");
 const doneAnim = require("./done.json");
+const akarata = require("akarata");
 
 const entriesFuse = entries.map((item) => ({ text: item }));
 
@@ -25,8 +26,8 @@ const fuse = new Fuse(entriesFuse, {
   keys: ["text"],
   id: "text",
   shouldSort: true,
-  threshold: 0.1,
-  distance: 15,
+  threshold: 0.25,
+  distance: 1000,
   minMatchCharLength: 4,
 });
 
@@ -85,6 +86,8 @@ function App() {
           ]);
         } else if (entries.includes(currentText)) {
           // console.log(`${currentText} ==> NO CHANGE`);
+        } else if (entries.includes(akarata.stem(currentText))) {
+          // console.log(`${currentText} ==> ${akarata.stem(currentText)}`);
         } else if (isNumber(currentText)) {
           // do nothing
         } else if (currentText.length <= 3) {
@@ -111,7 +114,7 @@ function App() {
                   new: results[0],
                   alt: results.filter((_, i) => i <= 6),
                 };
-                // console.log(`${currentText} ==> `, results);
+                console.log(`${currentText} ==> `, results);
                 if (oldText.trim() !== "") {
                   setCorrection((oldCorrection) => [
                     ...oldCorrection,

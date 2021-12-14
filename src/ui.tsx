@@ -113,7 +113,7 @@ function App() {
                   new: results[0],
                   alt: results.filter((_, i) => i <= 6),
                 };
-                console.log(`${currentText} ==> `, results);
+                // console.log(`${currentText} ==> `, results);
                 if (oldText.trim() !== "") {
                   setCorrection((oldCorrection) => [
                     ...oldCorrection,

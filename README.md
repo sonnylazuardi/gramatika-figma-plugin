@@ -8,7 +8,7 @@ Spell Checking for Bahasa Indonesia. This makes it easy to check the typo or spe
 
 # Word Stemming
 
-I would like to give credit to https://github.com/ikhsanalatsary/akarata, that enable this tool to get Indonesia word stem.
+I would like to give credit to https://github.com/ikhsanalatsary/akarata, which enables this tool to get Indonesia's word stem.
 
 # Data Source
 

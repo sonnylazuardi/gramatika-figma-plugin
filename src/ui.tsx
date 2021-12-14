@@ -27,7 +27,6 @@ const fuse = new Fuse(entriesFuse, {
   id: "text",
   shouldSort: true,
   threshold: 0.25,
-  distance: 1000,
   minMatchCharLength: 4,
 });
 

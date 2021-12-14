@@ -16,59 +16,19 @@ const Fuse = require("fuse.js");
 
 declare function require(path: string): any;
 
-const getBasicWord = (word) => {
-  const affixMap = [
-    "mem",
-    "meng",
-    "men",
-    "me",
-    "di",
-    "ku",
-    "ter",
-    "per",
-    "pel",
-    "pen",
-    "ber",
-  ];
-  const postfixMap = ["kan", "an", "nya", "ku", "mu", "i"];
-  let result = word;
-  affixMap.forEach((affix) => {
-    if (word.indexOf(affix) === 0) {
-      result = result.replace(affix, "");
-    }
-  });
-  let found = false;
-  postfixMap.forEach((postfix) => {
-    if (
-      (word.length - word.indexOf(postfix) === postfix.length ||
-        postfix.length <= 1) &&
-      !found
-    ) {
-      found = true;
-      const wordReverse = result
-        .split("")
-        .reverse()
-        .join("");
-      let postfixReverse = postfix;
-      if (postfix.length > 1) {
-        postfixReverse = postfix
-          .split("")
-          .reverse()
-          .join("");
-      }
-      result = wordReverse
-        .replace(postfixReverse, "")
-        .split("")
-        .reverse()
-        .join("");
-    }
-  });
-  return result;
-};
-
 function isNumber(n: any) {
   return !isNaN(parseFloat(n)) && !isNaN(n - 0);
 }
+
+let resultCache = {};
+const fuse = new Fuse(entriesFuse, {
+  keys: ["text"],
+  id: "text",
+  shouldSort: true,
+  threshold: 0.1,
+  distance: 1000,
+  minMatchCharLength: 4,
+});
 
 function App() {
   const [correction, setCorrection] = React.useState([]);
@@ -106,6 +66,7 @@ function App() {
     let myText = text.replace(/\n/g, " ");
     myText = myText.replace(/\./g, " ");
     const tokenizer = myText.split(" ");
+
     tokenizer.forEach((currentText: string) => {
       if (currentText !== "") {
         const oldText = currentText.replace(/[^a-zA-Z0-9\-]/g, "");
@@ -122,39 +83,48 @@ function App() {
               alt: [baku[currentText]],
             },
           ]);
-        } else if (
-          entries.find(
-            (item) => item === currentText || item === getBasicWord(currentText)
-          )
-        ) {
+        } else if (entries.includes(currentText)) {
           // console.log(`${currentText} ==> NO CHANGE`);
         } else if (isNumber(currentText)) {
           // do nothing
+        } else if (currentText.length <= 3) {
+          // do nothing
         } else {
-          const filteredEntries = entriesFuse.filter(
-            (item) => item.text[0] === currentText[0]
-          );
-          const fuse = new Fuse(filteredEntries, {
-            keys: ["text"],
-            id: "text",
-            shouldSort: true,
-            threshold: 0.3,
-          });
-          setTimeout(() => {
-            const results = fuse.search(currentText);
-            // console.log(`${currentText} ==> `, results[0]);
-            if (oldText.trim() !== "") {
+          if (resultCache[currentText]) {
+            if (resultCache[currentText].found) {
               setCorrection((oldCorrection) => [
                 ...oldCorrection,
                 {
                   old: oldText,
                   id,
-                  new: results[0],
-                  alt: results.filter((_, i) => i <= 20),
+                  new: resultCache[currentText].new,
+                  alt: resultCache[currentText].alt,
                 },
               ]);
             }
-          });
+          } else {
+            setTimeout(() => {
+              const results = fuse.search(currentText);
+              if (results.length) {
+                resultCache[currentText] = {
+                  found: true,
+                  new: results[0],
+                  alt: results.filter((_, i) => i <= 6),
+                };
+                if (oldText.trim() !== "") {
+                  setCorrection((oldCorrection) => [
+                    ...oldCorrection,
+                    {
+                      old: oldText,
+                      id,
+                      new: results[0],
+                      alt: results.filter((_, i) => i <= 6),
+                    },
+                  ]);
+                }
+              }
+            });
+          }
         }
       }
     });
@@ -237,7 +207,7 @@ function App() {
             <a
               onClick={() => {
                 let nextIndex = indexActive + 1;
-                if (nextIndex >= correction[0].alt.length - 1) {
+                if (nextIndex > correction[0].alt.length - 1) {
                   nextIndex = 0;
                 }
                 setIndexActive(nextIndex);

@@ -6,6 +6,10 @@ Spell Checking for Bahasa Indonesia. This makes it easy to check the typo or spe
 
 [Install Figma Plugin](https://www.figma.com/community/plugin/1013364535408157858/Cek-Ejaan)
 
+# Word Stemming
+
+I would like to give credit to https://github.com/ikhsanalatsary/akarata, that enable this tool to get Indonesia word stem.
+
 # Data Source
 
 Library of Kata baku dan tidak baku https://github.com/lantip/baku-tidak-baku

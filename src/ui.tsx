@@ -26,7 +26,7 @@ const fuse = new Fuse(entriesFuse, {
   id: "text",
   shouldSort: true,
   threshold: 0.1,
-  distance: 1000,
+  distance: 15,
   minMatchCharLength: 4,
 });
 
@@ -111,6 +111,7 @@ function App() {
                   new: results[0],
                   alt: results.filter((_, i) => i <= 6),
                 };
+                // console.log(`${currentText} ==> `, results);
                 if (oldText.trim() !== "") {
                   setCorrection((oldCorrection) => [
                     ...oldCorrection,

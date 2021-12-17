@@ -125,6 +125,19 @@ function App() {
                     },
                   ]);
                 }
+              } else {
+                if (oldText.trim() !== "") {
+                  setCorrection((oldCorrection) => [
+                    ...oldCorrection,
+                    {
+                      old: oldText,
+                      id,
+                      new: oldText,
+                      alt: [],
+                      notFound: true,
+                    },
+                  ]);
+                }
               }
             });
           }
@@ -164,6 +177,8 @@ function App() {
     nextText();
   };
 
+  const isNotFound = correction[0] && correction[0].notFound;
+
   return (
     <div className="App">
       {isEmpty ? (
@@ -187,44 +202,64 @@ function App() {
         </div>
       ) : correction.length > 0 ? (
         <div>
-          <div className="old">
-            Ubah <span className="old-bold">{correction[0].old}</span> menjadi:
-          </div>
-          <div className="new">
-            <button className="btn-new large" onClick={() => accept()}>
-              {correction[0].alt[indexActive]}
-            </button>
-          </div>
-          <div className="chevrons">
-            <a
-              onClick={() => {
-                let nextIndex = indexActive - 1;
-                if (nextIndex < 0) {
-                  nextIndex = correction[0].alt.length - 1;
-                }
-                setIndexActive(nextIndex);
-              }}
-            >
-              <img src={LeftChevron} className="icon-arrow" />
-            </a>
-            <a
-              onClick={() => {
-                let nextIndex = indexActive + 1;
-                if (nextIndex > correction[0].alt.length - 1) {
-                  nextIndex = 0;
-                }
-                setIndexActive(nextIndex);
-              }}
-            >
-              <img src={RightChevron} className="icon-arrow" />
-            </a>
-          </div>
-          <div className="actions">
-            <button className="primary" onClick={() => accept()}>
-              Ubah
-            </button>
-            <button onClick={() => nextText()}>Lewati</button>
-          </div>
+          {isNotFound ? (
+            <div className="old">
+              Kata <span className="old-bold">{correction[0].old}</span> tidak
+              ditemukan
+            </div>
+          ) : (
+            <>
+              <div className="old">
+                Ubah <span className="old-bold">{correction[0].old}</span>{" "}
+                menjadi:
+              </div>
+              <div className="new">
+                <button className="btn-new large" onClick={() => accept()}>
+                  {correction[0].alt[indexActive]}
+                </button>
+              </div>
+              <div className="chevrons">
+                <a
+                  onClick={() => {
+                    let nextIndex = indexActive - 1;
+                    if (nextIndex < 0) {
+                      nextIndex = correction[0].alt.length - 1;
+                    }
+                    setIndexActive(nextIndex);
+                  }}
+                >
+                  <img src={LeftChevron} className="icon-arrow" />
+                </a>
+                <a
+                  onClick={() => {
+                    let nextIndex = indexActive + 1;
+                    if (nextIndex > correction[0].alt.length - 1) {
+                      nextIndex = 0;
+                    }
+                    setIndexActive(nextIndex);
+                  }}
+                >
+                  <img src={RightChevron} className="icon-arrow" />
+                </a>
+              </div>
+            </>
+          )}
+
+          {isNotFound ? (
+            <div className="actions">
+              <button className="primary" disabled style={{ opacity: 0.5 }}>
+                Ubah
+              </button>
+              <button onClick={() => nextText()}>Lewati</button>
+            </div>
+          ) : (
+            <div className="actions">
+              <button className="primary" onClick={() => accept()}>
+                Ubah
+              </button>
+              <button onClick={() => nextText()}>Lewati</button>
+            </div>
+          )}
         </div>
       ) : (
         <div>

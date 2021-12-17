@@ -26,8 +26,10 @@ const fuse = new Fuse(entriesFuse, {
   keys: ["text"],
   id: "text",
   shouldSort: true,
-  threshold: 0.25,
-  minMatchCharLength: 4,
+  threshold: 0.2,
+  location: 0,
+  distance: 100,
+  minMatchCharLength: 3,
 });
 
 function App() {

@@ -250,14 +250,14 @@ function App() {
           {isNotFound ? (
             <div className="actions">
               <button className="primary" disabled style={{ opacity: 0.5 }}>
-                Ubah
+                Terapkan
               </button>
               <button onClick={() => nextText()}>Lewati</button>
             </div>
           ) : (
             <div className="actions">
               <button className="primary" onClick={() => accept()}>
-                Ubah
+                Terapkan
               </button>
               <button onClick={() => nextText()}>Lewati</button>
             </div>

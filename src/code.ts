@@ -2,13 +2,13 @@
 
 figma.showUI(__html__, { width: 340, height: 220 });
 
-figma.ui.onmessage = async msg => {
-  if (msg.type === 'check-text') {
+figma.ui.onmessage = async (msg) => {
+  if (msg.type === "check-text") {
     if (figma.currentPage.selection.length === 0) {
-      figma.ui.postMessage({ text: '' });
+      figma.ui.postMessage({ text: "" });
     }
 
-    figma.currentPage.selection.forEach(node => {
+    figma.currentPage.selection.forEach((node) => {
       try {
         //@ts-ignore
         if (node.characters && node.characters.length) {
@@ -18,8 +18,8 @@ figma.ui.onmessage = async msg => {
         }
         node
           //@ts-ignore
-          .findAll(n => n.characters && n.characters.length)
-          .forEach(item => {
+          .findAll((n) => n.characters && n.characters.length)
+          .forEach((item) => {
             //@ts-ignore
             if (item.characters) {
               //@ts-ignore
@@ -33,7 +33,7 @@ figma.ui.onmessage = async msg => {
     });
   }
 
-  if (msg.type === 'replace-text') {
+  if (msg.type === "replace-text") {
     const node = figma.getNodeById(msg.id);
     //@ts-ignore
     const font = node.getRangeFontName(0, node.characters.length);
@@ -48,7 +48,7 @@ figma.ui.onmessage = async msg => {
     }, 500);
   }
 
-  if (msg.type === 'zoom-to-node') {
+  if (msg.type === "zoom-to-node") {
     const node = figma.getNodeById(msg.id);
     //@ts-ignore
     figma.currentPage.selection = [node];

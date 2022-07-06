@@ -197,9 +197,9 @@ function App() {
             height={90}
             width={200}
           />
-          <div className="center">Mengecek ejaan dalam teks yang dipilih</div>
+          <div className="center">Mengecek ejaan dan typo dalam teks yang dipilih</div>
           <div className="actions">
-            <button onClick={() => {}}>Batalkan</button>
+            <button onClick={() => { }}>Batalkan</button>
           </div>
         </div>
       ) : correction.length > 0 ? (

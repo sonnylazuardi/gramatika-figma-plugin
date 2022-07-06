@@ -1,7 +1,7 @@
 {
-  "name": "eja",
+  "name": "gramatika-figma-plugin",
   "version": "0.0.1",
-  "description": "Eja - Grammarly untuk bahasa Indonesia",
+  "description": "Gramatika cek typo bahasa Indonesia",
   "main": "code.js",
   "homepage": "https://github.com/sonnylazuardi/cek-ejaan/",
   "bugs": "https://github.com/sonnylazuardi/cek-ejaan/issues",

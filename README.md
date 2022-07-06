@@ -1,4 +1,4 @@
-# Cek Ejaan Figma Plugin
+# Gramatika Figma Plugin
 
 ![cover](covereja.png)
 
